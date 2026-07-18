@@ -10,7 +10,7 @@ Noizey is an offline, dark-only Android sound mixer built for focus, rest, and m
 - Eight factory presets and unlimited on-device custom presets
 - Per-layer mute and volume, a master level, and click-free preset crossfades
 - 15–120 minute sleep timers with a gentle final 30-second fade
-- Media-session notification, lock-screen, headset, and Bluetooth play/pause controls
+- Compact one-row notification, lock-screen, headset, and Bluetooth play/pause controls
 - Foreground playback that survives leaving the app or dismissing its task
 - Intentional coexistence with YouTube, podcasts, music, and other audio apps
 
@@ -34,7 +34,7 @@ The debug APK is written to `app/build/outputs/apk/debug/app-debug.apk`.
 
 ## Playback behavior
 
-The mixer lives in a Media3 `MediaSessionService` with the `mediaPlayback` foreground-service type. A partial wake lock is held only while sound is actively rendering. Swiping Noizey away does not stop an ongoing mix. Play/pause is available from the app, notification, lock screen, headset, and system media controls; the app also has an explicit Stop control.
+The mixer lives in a Media3 `MediaSessionService` with the `mediaPlayback` foreground-service type. A partial wake lock is held only while sound is actively rendering. Swiping Noizey away does not stop an ongoing mix. Play/pause is available from the app, compact notification, lock screen, headset, and Bluetooth controls; the app also has an explicit Stop control.
 
 Noizey does **not** request Android audio focus. That is intentional: requesting focus would normally pause or fade the other app, while Noizey's core promise is to sit underneath it. Android's system mixer therefore combines Noizey with other non-exclusive playback. A phone force-stop, Android's Active Apps **Stop** action, or an exclusive hardware/audio route can still stop playback; apps are not allowed to bypass those system controls.
 

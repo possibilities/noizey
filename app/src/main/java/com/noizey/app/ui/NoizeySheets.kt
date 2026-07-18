@@ -359,7 +359,7 @@ internal fun InfoSheet(onDismiss: () -> Unit) {
                 InfoRow(
                     icon = Icons.Rounded.NotificationsActive,
                     title = "Keeps going",
-                    body = "Close the app and control playback from Android's media notification.",
+                    body = "Close the app and use the compact notification to pause or resume.",
                 )
                 InfoRow(
                     icon = Icons.Rounded.CloudOff,

@@ -2,4 +2,7 @@
 <resources>
     <string name="app_name">Noizey</string>
     <string name="playback_channel_name">Sound playback</string>
+    <string name="playback_channel_description">Quiet controls while Noizey plays in the background</string>
+    <string name="pause_playback">Pause playback</string>
+    <string name="resume_playback">Resume playback</string>
 </resources>

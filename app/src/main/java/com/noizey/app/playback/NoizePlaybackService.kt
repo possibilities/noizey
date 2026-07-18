@@ -17,7 +17,6 @@ import androidx.media3.common.MediaMetadata
 import androidx.media3.common.Player
 import androidx.media3.common.SimpleBasePlayer
 import androidx.media3.common.util.UnstableApi
-import androidx.media3.session.DefaultMediaNotificationProvider
 import androidx.media3.session.MediaSession
 import androidx.media3.session.MediaSessionService
 import com.google.common.util.concurrent.Futures
@@ -80,12 +79,7 @@ class NoizePlaybackService : MediaSessionService() {
 
     override fun onCreate() {
         super.onCreate()
-        val notificationProvider = DefaultMediaNotificationProvider.Builder(this)
-            .setChannelId("noizey-playback")
-            .setChannelName(R.string.playback_channel_name)
-            .build()
-            .apply { setSmallIcon(R.drawable.ic_notification) }
-        setMediaNotificationProvider(notificationProvider)
+        setMediaNotificationProvider(CompactMediaNotificationProvider(this))
         engine = NoiseEngine(this).also { it.updateMix(PlaybackStore.state.value.mix) }
         noizePlayer = NoizePlayer(mainLooper, engine) { playing ->
             servicePreferences.edit { putBoolean(KEY_WAS_PLAYING, playing) }
