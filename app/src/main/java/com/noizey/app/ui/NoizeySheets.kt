@@ -359,7 +359,7 @@ internal fun InfoSheet(onDismiss: () -> Unit) {
                 InfoRow(
                     icon = Icons.Rounded.NotificationsActive,
                     title = "Keeps going",
-                    body = "Close the app and use the compact notification to pause or resume.",
+                    body = "Close the app and use the compact notification to pause, resume, or remix the master level.",
                 )
                 InfoRow(
                     icon = Icons.Rounded.CloudOff,

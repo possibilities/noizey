@@ -1,6 +1,6 @@
 # Noizey
 
-Noizey is an offline, dark-only Android sound mixer built for focus, rest, and masking distraction. It combines real-time colored noise with procedural nature soundscapes, keeps playing when its UI is dismissed, and deliberately mixes with other apps instead of taking exclusive audio focus.
+Noizey is an offline, monochrome dark Android sound mixer built for focus, rest, and masking distraction. It combines real-time colored noise with procedural nature soundscapes, keeps playing when its UI is dismissed, and deliberately mixes with other apps instead of taking exclusive audio focus.
 
 ## What is included
 
@@ -10,7 +10,8 @@ Noizey is an offline, dark-only Android sound mixer built for focus, rest, and m
 - Eight factory presets and unlimited on-device custom presets
 - Per-layer mute and volume, a master level, and click-free preset crossfades
 - 15–120 minute sleep timers with a gentle final 30-second fade
-- Compact one-row notification, lock-screen, headset, and Bluetooth play/pause controls
+- Compact one-row notification with play/pause and a hidden master-volume control
+- Optional continued playback when wired or Bluetooth headphones disconnect
 - Foreground playback that survives leaving the app or dismissing its task
 - Intentional coexistence with YouTube, podcasts, music, and other audio apps
 

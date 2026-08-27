@@ -60,7 +60,7 @@ class NoiseEngine(context: Context) {
 
     @Synchronized
     fun stop() {
-        if (!running) return
+        if (!running && audioThread == null) return
         running = false
         val thread = audioThread
         audioThread = null
@@ -72,6 +72,11 @@ class NoiseEngine(context: Context) {
             }
         }
         releaseWakeLock()
+    }
+
+    fun restart() {
+        stop()
+        start()
     }
 
     private fun audioLoop() {

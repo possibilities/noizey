@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/notification_volume_percent"
+        style="@style/TextAppearance.Compat.Notification.Title"
+        android:layout_width="52dp"
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:maxLines="1"
+        android:text="38%" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/notification_volume_0"
+            style="@style/TextAppearance.Compat.Notification.Title"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="•"
+            android:textColor="@color/notification_volume_inactive"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/notification_volume_1"
+            style="@style/TextAppearance.Compat.Notification.Title"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="•"
+            android:textColor="@color/notification_volume_inactive"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/notification_volume_2"
+            style="@style/TextAppearance.Compat.Notification.Title"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="•"
+            android:textColor="@color/notification_volume_inactive"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/notification_volume_3"
+            style="@style/TextAppearance.Compat.Notification.Title"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="•"
+            android:textColor="@color/notification_volume_inactive"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/notification_volume_4"
+            style="@style/TextAppearance.Compat.Notification.Title"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="•"
+            android:textColor="@color/notification_volume_inactive"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/notification_volume_5"
+            style="@style/TextAppearance.Compat.Notification.Title"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="•"
+            android:textColor="@color/notification_volume_inactive"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/notification_volume_6"
+            style="@style/TextAppearance.Compat.Notification.Title"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="•"
+            android:textColor="@color/notification_volume_inactive"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/notification_volume_hide"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/hide_master_volume_controls"
+        android:padding="8dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_notification_done"
+        android:tint="@color/notification_control_tint" />
+
+</LinearLayout>

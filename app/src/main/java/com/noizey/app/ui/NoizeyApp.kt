@@ -2,11 +2,13 @@ package com.noizey.app.ui
 
 import android.content.ComponentName
 import android.content.Context
+import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.content.ContextCompat
@@ -33,6 +35,26 @@ fun NoizeyApp() {
     var openSheet by remember { mutableStateOf<NoizeySheet?>(null) }
     var showSaveDialog by remember { mutableStateOf(false) }
     var presetPendingDelete by remember { mutableStateOf<Preset?>(null) }
+    var preferencesOpen by rememberSaveable { mutableStateOf(false) }
+    var stayRunningWhenHeadphonesUnplugged by remember(repository) {
+        mutableStateOf(repository.stayRunningWhenHeadphonesUnplugged())
+    }
+
+    BackHandler(enabled = preferencesOpen) {
+        preferencesOpen = false
+    }
+
+    if (preferencesOpen) {
+        PreferencesScreen(
+            stayRunningWhenHeadphonesUnplugged = stayRunningWhenHeadphonesUnplugged,
+            onStayRunningWhenHeadphonesUnpluggedChange = { enabled ->
+                stayRunningWhenHeadphonesUnplugged = enabled
+                repository.setStayRunningWhenHeadphonesUnplugged(enabled)
+            },
+            onBack = { preferencesOpen = false },
+        )
+        return
+    }
 
     NoizeyScreen(
         state = playbackState,
@@ -51,6 +73,10 @@ fun NoizeyApp() {
         onLayerRemove = PlaybackStore::removeLayer,
         onAddSoundRequested = { openSheet = NoizeySheet.Sounds },
         onTimerRequested = { openSheet = NoizeySheet.Timer },
+        onPreferencesRequested = {
+            openSheet = null
+            preferencesOpen = true
+        },
         onInfoRequested = { openSheet = NoizeySheet.Info },
     )
 

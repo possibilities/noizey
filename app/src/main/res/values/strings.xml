@@ -5,4 +5,9 @@
     <string name="playback_channel_description">Quiet controls while Noizey plays in the background</string>
     <string name="pause_playback">Pause playback</string>
     <string name="resume_playback">Resume playback</string>
+    <string name="adjust_master_volume">Adjust master volume</string>
+    <string name="hide_master_volume_controls">Hide master volume controls</string>
+    <string name="master_volume_percent">%1$d%%</string>
+    <string name="master_volume_content_description">Master volume %1$d percent</string>
+    <string name="set_master_volume_percent">Set master volume to %1$d percent</string>
 </resources>

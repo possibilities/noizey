@@ -33,6 +33,15 @@ class PreferencesRepository(context: Context) {
         }
     }
 
+    fun stayRunningWhenHeadphonesUnplugged(): Boolean =
+        preferences.getBoolean(KEY_STAY_RUNNING_WHEN_HEADPHONES_UNPLUGGED, false)
+
+    fun setStayRunningWhenHeadphonesUnplugged(enabled: Boolean) {
+        preferences.edit {
+            putBoolean(KEY_STAY_RUNNING_WHEN_HEADPHONES_UNPLUGGED, enabled)
+        }
+    }
+
     fun loadCustomPresets(): List<Preset> = preferences
         .getStringSet(KEY_CUSTOM_IDS, emptySet())
         .orEmpty()
@@ -96,5 +105,7 @@ class PreferencesRepository(context: Context) {
         const val KEY_MIX_NAME = "mix.name"
         const val KEY_ACTIVE_PRESET = "mix.preset"
         const val KEY_CUSTOM_IDS = "presets.custom.ids"
+        const val KEY_STAY_RUNNING_WHEN_HEADPHONES_UNPLUGGED =
+            "playback.stay_running_when_headphones_unplugged"
     }
 }

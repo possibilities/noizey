@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="notification_control_tint">#FFFFFFFF</color>
+    <color name="notification_volume_active">#FFFFFFFF</color>
+    <color name="notification_volume_inactive">#52FFFFFF</color>
 </resources>

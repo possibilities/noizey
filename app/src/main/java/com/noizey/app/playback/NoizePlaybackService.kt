@@ -22,6 +22,7 @@ import androidx.media3.session.MediaSessionService
 import com.google.common.util.concurrent.Futures
 import com.google.common.util.concurrent.ListenableFuture
 import com.noizey.app.MainActivity
+import com.noizey.app.NoizeyApplication
 import com.noizey.app.R
 import com.noizey.app.audio.NoiseEngine
 import com.noizey.app.model.SoundCatalog
@@ -31,9 +32,13 @@ class NoizePlaybackService : MediaSessionService() {
     private lateinit var engine: NoiseEngine
     private lateinit var noizePlayer: NoizePlayer
     private lateinit var mediaSession: MediaSession
+    private lateinit var notificationProvider: CompactMediaNotificationProvider
     private val handler = Handler(Looper.getMainLooper())
     private val servicePreferences by lazy {
         getSharedPreferences("noizey.playback", Context.MODE_PRIVATE)
+    }
+    private val preferencesRepository by lazy {
+        (application as NoizeyApplication).preferencesRepository
     }
 
     private val storeListener: (PlaybackUiState) -> Unit = { state ->
@@ -71,7 +76,16 @@ class NoizePlaybackService : MediaSessionService() {
 
     private val becomingNoisyReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
-            if (intent?.action == AudioManager.ACTION_AUDIO_BECOMING_NOISY) {
+            if (intent?.action != AudioManager.ACTION_AUDIO_BECOMING_NOISY) return
+
+            if (preferencesRepository.stayRunningWhenHeadphonesUnplugged()) {
+                handler.postDelayed(
+                    {
+                        if (PlaybackStore.state.value.isPlaying) engine.restart()
+                    },
+                    ROUTE_CHANGE_SETTLE_MS,
+                )
+            } else {
                 handler.post { noizePlayer.pause() }
             }
         }
@@ -79,7 +93,8 @@ class NoizePlaybackService : MediaSessionService() {
 
     override fun onCreate() {
         super.onCreate()
-        setMediaNotificationProvider(CompactMediaNotificationProvider(this))
+        notificationProvider = CompactMediaNotificationProvider(this)
+        setMediaNotificationProvider(notificationProvider)
         engine = NoiseEngine(this).also { it.updateMix(PlaybackStore.state.value.mix) }
         noizePlayer = NoizePlayer(mainLooper, engine) { playing ->
             servicePreferences.edit { putBoolean(KEY_WAS_PLAYING, playing) }
@@ -105,6 +120,25 @@ class NoizePlaybackService : MediaSessionService() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         val result = super.onStartCommand(intent, flags, startId)
+        when (intent?.action) {
+            ACTION_SHOW_MASTER_VOLUME -> {
+                notificationProvider.setVolumeControlsVisible(true)
+                triggerNotificationUpdate()
+            }
+
+            ACTION_HIDE_MASTER_VOLUME -> {
+                notificationProvider.setVolumeControlsVisible(false)
+                triggerNotificationUpdate()
+            }
+
+            ACTION_SET_MASTER_VOLUME -> {
+                val volume = intent.getFloatExtra(EXTRA_MASTER_VOLUME, Float.NaN)
+                if (volume.isFinite()) {
+                    PlaybackStore.setMasterVolume(volume)
+                    triggerNotificationUpdate()
+                }
+            }
+        }
         if (intent == null && servicePreferences.getBoolean(KEY_WAS_PLAYING, false)) {
             val timerEnd = servicePreferences.getLong(KEY_TIMER_END, NO_TIMER)
             if (timerEnd != NO_TIMER && timerEnd <= System.currentTimeMillis()) {
@@ -251,11 +285,16 @@ class NoizePlaybackService : MediaSessionService() {
         }
     }
 
-    private companion object {
+    internal companion object {
         const val TIMER_TICK_MS = 500L
         const val FADE_DURATION_MS = 30_000L
+        const val ROUTE_CHANGE_SETTLE_MS = 350L
         const val KEY_WAS_PLAYING = "was_playing"
         const val KEY_TIMER_END = "timer_end"
         const val NO_TIMER = -1L
+        const val ACTION_SHOW_MASTER_VOLUME = "com.noizey.app.action.SHOW_MASTER_VOLUME"
+        const val ACTION_HIDE_MASTER_VOLUME = "com.noizey.app.action.HIDE_MASTER_VOLUME"
+        const val ACTION_SET_MASTER_VOLUME = "com.noizey.app.action.SET_MASTER_VOLUME"
+        const val EXTRA_MASTER_VOLUME = "com.noizey.app.extra.MASTER_VOLUME"
     }
 }

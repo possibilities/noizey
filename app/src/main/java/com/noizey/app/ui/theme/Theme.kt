@@ -29,7 +29,7 @@ private val NoizeyDarkColors = darkColorScheme(
     surfaceContainerLow = NoizeySurface,
     surfaceContainer = NoizeySurfaceVariant,
     surfaceContainerHigh = NoizeySurfaceRaised,
-    surfaceContainerHighest = Color(0xFF242429),
+    surfaceContainerHighest = Color(0xFF232326),
     outline = NoizeyOutline,
     outlineVariant = NoizeyOutline.copy(alpha = 0.72f),
     error = NoizeyError,

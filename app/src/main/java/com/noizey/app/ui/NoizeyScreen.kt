@@ -34,6 +34,7 @@ import androidx.compose.material.icons.rounded.LocalFireDepartment
 import androidx.compose.material.icons.rounded.MoreVert
 import androidx.compose.material.icons.rounded.Pause
 import androidx.compose.material.icons.rounded.PlayArrow
+import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material.icons.rounded.Stop
 import androidx.compose.material.icons.rounded.Thunderstorm
 import androidx.compose.material.icons.rounded.Timer
@@ -94,6 +95,7 @@ internal fun NoizeyScreen(
     onLayerRemove: (String) -> Unit,
     onAddSoundRequested: () -> Unit,
     onTimerRequested: () -> Unit,
+    onPreferencesRequested: () -> Unit,
     onInfoRequested: () -> Unit,
 ) {
     val hasLayers = state.mix.layers.isNotEmpty()
@@ -104,6 +106,7 @@ internal fun NoizeyScreen(
             NoizeyTopBar(
                 timerRemainingMillis = state.timer?.remainingMillis,
                 onTimerRequested = onTimerRequested,
+                onPreferencesRequested = onPreferencesRequested,
                 onInfoRequested = onInfoRequested,
             )
         },
@@ -206,6 +209,7 @@ internal fun NoizeyScreen(
 private fun NoizeyTopBar(
     timerRemainingMillis: Long?,
     onTimerRequested: () -> Unit,
+    onPreferencesRequested: () -> Unit,
     onInfoRequested: () -> Unit,
 ) {
     TopAppBar(
@@ -239,6 +243,12 @@ private fun NoizeyTopBar(
                         contentDescription = "Set sleep timer",
                     )
                 }
+            }
+            IconButton(onClick = onPreferencesRequested) {
+                Icon(
+                    imageVector = Icons.Rounded.Settings,
+                    contentDescription = "Preferences",
+                )
             }
             IconButton(onClick = onInfoRequested) {
                 Icon(
