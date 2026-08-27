@@ -41,6 +41,17 @@ class NoizePlaybackService : MediaSessionService() {
         (application as NoizeyApplication).preferencesRepository
     }
 
+    private val mediaSessionCallback = object : MediaSession.Callback {
+        override fun onMediaButtonEvent(
+            session: MediaSession,
+            controllerInfo: MediaSession.ControllerInfo,
+            intent: Intent,
+        ): Boolean {
+            // Noizey is an ambient mixer, so headset and Bluetooth media buttons must not alter it.
+            return true
+        }
+    }
+
     private val storeListener: (PlaybackUiState) -> Unit = { state ->
         engine.updateMix(state.mix)
         if (!state.isPlaying || state.timer == null) engine.setFadeMultiplier(1f)
@@ -112,6 +123,7 @@ class NoizePlaybackService : MediaSessionService() {
         mediaSession = MediaSession.Builder(this, noizePlayer)
             .setId("noizey-session")
             .setSessionActivity(sessionActivity)
+            .setCallback(mediaSessionCallback)
             .build()
         PlaybackStore.addListener(storeListener)
         registerNoisyReceiver()
@@ -121,6 +133,11 @@ class NoizePlaybackService : MediaSessionService() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         val result = super.onStartCommand(intent, flags, startId)
         when (intent?.action) {
+            ACTION_TOGGLE_PLAYBACK -> {
+                if (PlaybackStore.state.value.isPlaying) noizePlayer.pause() else noizePlayer.play()
+                triggerNotificationUpdate()
+            }
+
             ACTION_SHOW_MASTER_VOLUME -> {
                 notificationProvider.setVolumeControlsVisible(true)
                 triggerNotificationUpdate()
@@ -292,6 +309,7 @@ class NoizePlaybackService : MediaSessionService() {
         const val KEY_WAS_PLAYING = "was_playing"
         const val KEY_TIMER_END = "timer_end"
         const val NO_TIMER = -1L
+        const val ACTION_TOGGLE_PLAYBACK = "com.noizey.app.action.TOGGLE_PLAYBACK"
         const val ACTION_SHOW_MASTER_VOLUME = "com.noizey.app.action.SHOW_MASTER_VOLUME"
         const val ACTION_HIDE_MASTER_VOLUME = "com.noizey.app.action.HIDE_MASTER_VOLUME"
         const val ACTION_SET_MASTER_VOLUME = "com.noizey.app.action.SET_MASTER_VOLUME"

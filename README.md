@@ -35,7 +35,7 @@ The debug APK is written to `app/build/outputs/apk/debug/app-debug.apk`.
 
 ## Playback behavior
 
-The mixer lives in a Media3 `MediaSessionService` with the `mediaPlayback` foreground-service type. A partial wake lock is held only while sound is actively rendering. Swiping Noizey away does not stop an ongoing mix. Play/pause is available from the app, compact notification, lock screen, headset, and Bluetooth controls; the app also has an explicit Stop control.
+The mixer lives in a Media3 `MediaSessionService` with the `mediaPlayback` foreground-service type. A partial wake lock is held only while sound is actively rendering. Swiping Noizey away does not stop an ongoing mix. Play/pause is available from the app and compact notification; headset, Bluetooth, and other hardware media buttons do not control Noizey. The app also has an explicit Stop control.
 
 Noizey does **not** request Android audio focus. That is intentional: requesting focus would normally pause or fade the other app, while Noizey's core promise is to sit underneath it. Android's system mixer therefore combines Noizey with other non-exclusive playback. A phone force-stop, Android's Active Apps **Stop** action, or an exclusive hardware/audio route can still stop playback; apps are not allowed to bypass those system controls.
 

@@ -12,7 +12,6 @@ import android.widget.RemoteViews
 import androidx.annotation.OptIn
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
-import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.session.CommandButton
 import androidx.media3.session.MediaNotification
@@ -53,9 +52,9 @@ class CompactMediaNotificationProvider(
     ): MediaNotification {
         val state = PlaybackStore.state.value
         val isPlaying = mediaSession.player.playWhenReady
-        val toggleIntent = actionFactory.createMediaActionPendingIntent(
-            mediaSession,
-            Player.COMMAND_PLAY_PAUSE,
+        val toggleIntent = serviceIntent(
+            action = NoizePlaybackService.ACTION_TOGGLE_PLAYBACK,
+            requestCode = REQUEST_TOGGLE_PLAYBACK,
         )
         val compactView = if (volumeControlsVisible) {
             createVolumeView(state)
@@ -89,6 +88,7 @@ class CompactMediaNotificationProvider(
             .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
             .setForegroundServiceBehavior(NotificationCompat.FOREGROUND_SERVICE_DEFERRED)
             .setBadgeIconType(NotificationCompat.BADGE_ICON_NONE)
+            .setNumber(0)
             .setShowWhen(false)
             .setOnlyAlertOnce(true)
             .setSilent(true)
@@ -219,11 +219,16 @@ class CompactMediaNotificationProvider(
             lockscreenVisibility = Notification.VISIBILITY_PUBLIC
         }
         notificationManager.createNotificationChannel(channel)
+        notificationManager.deleteNotificationChannel(LEGACY_CHANNEL_ID)
     }
 
     private companion object {
-        const val CHANNEL_ID = "noizey-playback"
+        // A fresh channel migrates installs whose original channel was created before badge
+        // suppression took effect. Android preserves the behavior of an existing channel.
+        const val CHANNEL_ID = "noizey-playback-v2"
+        const val LEGACY_CHANNEL_ID = "noizey-playback"
         const val NOTIFICATION_ID = 1001
+        const val REQUEST_TOGGLE_PLAYBACK = 2000
         const val REQUEST_SHOW_VOLUME = 2001
         const val REQUEST_HIDE_VOLUME = 2002
         const val REQUEST_VOLUME_BASE = 2100
