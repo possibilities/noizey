@@ -55,4 +55,6 @@ These answers describe release `1.0.0` and must be revisited whenever the app or
 - User initiation: the user presses Play in Noizey.
 - User control: pause and stop are available in the app and the persistent media notification.
 - Interruption impact: Android would stop the user's active mix and sleep timer early.
-- Evidence: upload the foreground-playback demonstration captured for the release.
+- Evidence: upload `evidence/foreground-playback.mp4`, which shows user-initiated
+  playback continuing outside Noizey and pause/resume control from the compact
+  media notification. Unrelated notifications are masked for privacy.
