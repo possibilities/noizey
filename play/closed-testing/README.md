@@ -15,6 +15,10 @@ Official references:
 
 - Prefer a Google Group or a private Play tester list. Never ask volunteers to
   post their Google-account address publicly.
+- Two Google Forms are prepared in the operator's Drive. Find them by the exact
+  titles `Noizey Android closed-test signup` and `Noizey closed-test feedback`.
+  Keep responder URLs out of this public repository; share the signup form only
+  in active recruitment and the feedback form only with enrolled testers.
 - Store the tester roster outside this repository. Record only what is needed to
   manage opt-in continuity and feedback, and delete it when the test is complete.
 - Closed testers normally must purchase paid apps. If Play Console enables
@@ -47,8 +51,8 @@ before every post.
 >
 > No rating or positive review is requested; critical feedback is welcome. I
 > will provide a free paid-app promo code if Google Play enables them for this
-> closed release. Comment or DM if interested so no Google-account address is
-> posted publicly.
+> closed release. Use the private signup form or DM if interested so no
+> Google-account address is posted publicly.
 
 For reciprocal-testing communities, add one sentence offering to test another
 developer's app genuinely. Never promise a rating or review.
