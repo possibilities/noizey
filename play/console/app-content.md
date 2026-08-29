@@ -20,9 +20,24 @@ These answers describe release `1.0.0` and must be revisited whenever the app or
 - Product type: **Computer Software**
 - Website and support email: use the Store contact values below
 - Buyer card-statement text: **Google*Noizey**
-- Account group: **Noizey Studio**; enroll it in the 15% service-fee tier
+- Account group: **Noizey Studio**; enrolled in the 15% service-fee tier
 - Configure and verify a United States payout bank account in Play Console. Never
   copy its routing or account number into this repository.
+
+## Closed testing and production access
+
+- This personal developer account must run a closed test with at least **12
+  testers continuously opted in for 14 days** before applying for production
+  access. Recruit 18–20 where possible so one dropout does not reset the clock.
+- Keep the application paid from creation. Closed-test users normally must buy a
+  paid app, so create paid-app promo codes to comp tester copies if Play Console
+  enables them for the closed release. If it does not, pause before asking anyone
+  to pay; never switch this package to free as a workaround.
+- Recruit real Android users and collect candid feedback. Do not request public
+  ratings, positive reviews, fake usage, multiple accounts controlled by one
+  person, or any other engagement manipulation.
+- Use a Google Group or private Play tester list and share the opt-in link
+  directly. Never publish tester Google-account addresses or commit them here.
 
 ## Store contact
 
