@@ -2,6 +2,28 @@
 
 These answers describe release `1.0.0` and must be revisited whenever the app or its dependencies change.
 
+## App setup
+
+- App name: **Noizey**
+- App or game: **App**
+- Default language: **English (United States)**
+- Application ID: **com.noizey.app**
+- Pricing: **Paid from first publication**, with a United States price of **$1.99 USD**
+- Initial availability: **United States**
+- Category: **Music & Audio**
+- App signing: **Google Play App Signing**, using the dedicated Noizey upload certificate
+
+## Merchant setup
+
+- Payments profile type: **Individual**
+- Public business name: **Noizey Studio**
+- Product type: **Computer Software**
+- Website and support email: use the Store contact values below
+- Buyer card-statement text: **Google*Noizey**
+- Account group: **Noizey Studio**; enroll it in the 15% service-fee tier
+- Configure and verify a United States payout bank account in Play Console. Never
+  copy its routing or account number into this repository.
+
 ## Store contact
 
 - Privacy policy: **https://noizey.notimpossiblemike.chatgpt.site/#privacy**
