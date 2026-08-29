@@ -33,6 +33,22 @@ Run tests and static analysis:
 
 The debug APK is written to `app/build/outputs/apk/debug/app-debug.apk`.
 
+On the Noizey development machine, debug builds use the legacy key at `/Volumes/Scratch/coldstorage/mike/.android/debug.keystore` when it is mounted so `adb install -r` preserves the phone's settings. Set `NOIZEY_DEBUG_KEYSTORE` to override that location; other machines fall back to their normal Android debug key.
+
+## Release bundle
+
+Google Play releases use a dedicated upload key; the legacy debug key is never a production signing identity. Keep the upload keystore and its credentials outside the repository, then provide them only to the release build:
+
+```sh
+NOIZEY_UPLOAD_KEYSTORE=/absolute/path/to/noizey-upload.jks \
+NOIZEY_UPLOAD_STORE_PASSWORD='…' \
+NOIZEY_UPLOAD_KEY_ALIAS=noizey-upload \
+NOIZEY_UPLOAD_KEY_PASSWORD='…' \
+./gradlew bundleRelease
+```
+
+The signed bundle is written to `app/build/outputs/bundle/release/app-release.aab`. Google Play App Signing holds the app-signing key used for installs; the local key is only the replaceable upload credential.
+
 ## Playback behavior
 
 The mixer lives in a Media3 `MediaSessionService` with the `mediaPlayback` foreground-service type. A partial wake lock is held only while sound is actively rendering. Swiping Noizey away does not stop an ongoing mix. Play/pause is available from the app and compact notification; headset, Bluetooth, and other hardware media buttons do not control Noizey. The app also has an explicit Stop control.

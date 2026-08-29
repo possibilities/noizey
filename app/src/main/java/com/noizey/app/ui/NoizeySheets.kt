@@ -54,6 +54,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.semantics.semantics
@@ -61,6 +62,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.noizey.app.BuildConfig
 import com.noizey.app.model.Preset
 import com.noizey.app.model.SoundCatalog
 import com.noizey.app.model.SoundDefinition
@@ -328,6 +330,8 @@ internal fun TimerSheet(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun InfoSheet(onDismiss: () -> Unit) {
+    val uriHandler = LocalUriHandler.current
+
     ModalBottomSheet(
         onDismissRequest = onDismiss,
         containerColor = MaterialTheme.colorScheme.surface,
@@ -368,6 +372,29 @@ internal fun InfoSheet(onDismiss: () -> Unit) {
                 )
             }
 
+            HorizontalDivider(color = MaterialTheme.colorScheme.outline)
+
+            Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                Text("Private by design", style = MaterialTheme.typography.titleMedium)
+                Text(
+                    text = "Noizey does not collect, share, or transmit personal data. Mixes and presets stay on this device; a settings backup is read or written only when you choose a file.",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+                Text(
+                    text = "Version ${BuildConfig.VERSION_NAME}",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
+
+            OutlinedButton(
+                onClick = { uriHandler.openUri(NOIZEY_SITE_URL) },
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                Text("Privacy & support")
+            }
+
             Button(
                 onClick = onDismiss,
                 modifier = Modifier.fillMaxWidth(),
@@ -377,6 +404,8 @@ internal fun InfoSheet(onDismiss: () -> Unit) {
         }
     }
 }
+
+private const val NOIZEY_SITE_URL = "https://noizey.notimpossiblemike.chatgpt.site"
 
 @Composable
 private fun InfoRow(

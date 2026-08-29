@@ -51,6 +51,16 @@ fun NoizeyApp() {
                 stayRunningWhenHeadphonesUnplugged = enabled
                 repository.setStayRunningWhenHeadphonesUnplugged(enabled)
             },
+            onCreateSettingsBackup = repository::createSettingsBackup,
+            onRestoreSettingsBackup = { contents ->
+                runCatching {
+                    repository.restoreSettingsBackup(contents)
+                    PlaybackStore.reloadFromRepository()
+                    customPresets = repository.loadCustomPresets()
+                    stayRunningWhenHeadphonesUnplugged =
+                        repository.stayRunningWhenHeadphonesUnplugged()
+                }
+            },
             onBack = { preferencesOpen = false },
         )
         return

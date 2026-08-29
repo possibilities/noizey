@@ -14,12 +14,24 @@ class PreferencesRepository(context: Context) {
 
     fun loadMix(): MixConfig {
         val fallback = BuiltInPresets.default
-        val storedLayers = MixCodec.decode(preferences.getString(KEY_LAYERS, null))
+        val encodedLayers = preferences.getString(KEY_LAYERS, null)
+        val storedLayers = MixCodec.decode(encodedLayers)
+        val layers = when {
+            encodedLayers == null -> fallback.layers
+            encodedLayers.isEmpty() -> emptyMap()
+            storedLayers.isEmpty() -> fallback.layers
+            else -> storedLayers
+        }
+        val activePresetId = if (encodedLayers == null) {
+            fallback.id
+        } else {
+            preferences.getString(KEY_ACTIVE_PRESET, null)
+        }
         return MixConfig(
             name = preferences.getString(KEY_MIX_NAME, fallback.name) ?: fallback.name,
             masterVolume = preferences.getFloat(KEY_MASTER, 0.38f),
-            layers = storedLayers.ifEmpty { fallback.layers },
-            activePresetId = preferences.getString(KEY_ACTIVE_PRESET, fallback.id),
+            layers = layers,
+            activePresetId = activePresetId,
         ).normalized()
     }
 
@@ -39,6 +51,41 @@ class PreferencesRepository(context: Context) {
     fun setStayRunningWhenHeadphonesUnplugged(enabled: Boolean) {
         preferences.edit {
             putBoolean(KEY_STAY_RUNNING_WHEN_HEADPHONES_UNPLUGGED, enabled)
+        }
+    }
+
+    fun createSettingsBackup(): String = SettingsBackupCodec.encode(
+        SettingsSnapshot(
+            mix = loadMix(),
+            customPresets = loadCustomPresets(),
+            stayRunningWhenHeadphonesUnplugged = stayRunningWhenHeadphonesUnplugged(),
+        ),
+    )
+
+    fun restoreSettingsBackup(contents: String) {
+        val snapshot = SettingsBackupCodec.decode(contents)
+        val previousPresetIds = preferences.getStringSet(KEY_CUSTOM_IDS, emptySet()).orEmpty()
+        preferences.edit(commit = true) {
+            previousPresetIds.forEach { id ->
+                remove("preset.$id.name")
+                remove("preset.$id.layers")
+                remove("preset.$id.created")
+            }
+            putString(KEY_MIX_NAME, snapshot.mix.name)
+            putFloat(KEY_MASTER, snapshot.mix.masterVolume)
+            putString(KEY_LAYERS, MixCodec.encode(snapshot.mix.layers))
+            snapshot.mix.activePresetId?.let { putString(KEY_ACTIVE_PRESET, it) }
+                ?: remove(KEY_ACTIVE_PRESET)
+            putBoolean(
+                KEY_STAY_RUNNING_WHEN_HEADPHONES_UNPLUGGED,
+                snapshot.stayRunningWhenHeadphonesUnplugged,
+            )
+            putStringSet(KEY_CUSTOM_IDS, snapshot.customPresets.map(Preset::id).toSet())
+            snapshot.customPresets.forEach { preset ->
+                putString("preset.${preset.id}.name", preset.name)
+                putString("preset.${preset.id}.layers", MixCodec.encode(preset.layers))
+                putLong("preset.${preset.id}.created", preset.createdAt)
+            }
         }
     }
 

@@ -108,6 +108,10 @@ object PlaybackStore {
         }
     }
 
+    fun reloadFromRepository() {
+        publish(_state.value.copy(mix = repository.loadMix()))
+    }
+
     fun setPlaying(playing: Boolean) {
         val current = _state.value
         var timer = current.timer

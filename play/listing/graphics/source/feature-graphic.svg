@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="500" viewBox="0 0 1024 500">
+  <rect width="1024" height="500" fill="#0B0B0C"/>
+  <g fill="none" stroke="#D7D7D8" stroke-width="2" opacity="0.075">
+    <circle cx="176" cy="250" r="226"/>
+    <circle cx="176" cy="250" r="194"/>
+    <circle cx="176" cy="250" r="162"/>
+    <circle cx="176" cy="250" r="130"/>
+  </g>
+  <g transform="translate(70 144)">
+    <circle cx="106" cy="106" r="106" fill="#D7D7D8"/>
+    <circle cx="106" cy="106" r="64" fill="#0B0B0C"/>
+    <circle cx="106" cy="106" r="28" fill="#D7D7D8"/>
+  </g>
+  <text x="365" y="244" fill="#E9E9EA" font-family="Arial, Helvetica, sans-serif" font-size="92" font-weight="700" letter-spacing="-3">Noizey</text>
+  <text x="370" y="298" fill="#9E9EA2" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" letter-spacing="5">MAKE YOUR OWN QUIET</text>
+</svg>

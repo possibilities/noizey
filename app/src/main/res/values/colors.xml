@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="ic_launcher_background">#0B0B0C</color>
     <color name="notification_control_tint">#DE000000</color>
     <color name="notification_volume_active">#DE000000</color>
     <color name="notification_volume_inactive">#42000000</color>

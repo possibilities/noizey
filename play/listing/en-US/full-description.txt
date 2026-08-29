@@ -1,0 +1,25 @@
+Make your own quiet.
+
+Noizey is a focused sound mixer that combines endlessly generated colored noise with procedural nature soundscapes. Build a mix that fits the moment, save it as a preset, and let it keep playing when you leave the app.
+
+MIX WITH PRECISION
+
+• Brown, pink, white, gray, green, blue, and violet noise
+• Deep fan and cabin-hum generators
+• Rain, distant thunder, ocean, stream, waterfall, wind, forest night, and fireplace soundscapes
+• Independent mute and volume controls for every layer
+• Master volume and smooth, click-free preset changes
+
+BUILT TO STAY OUT OF THE WAY
+
+• Continues playing with the screen off or the app dismissed
+• Compact notification controls for playback and master volume
+• Optional continued playback when headphones disconnect
+• Sleep timer with a gentle final fade
+• Mixes alongside music, video, and podcasts instead of interrupting them
+
+PRIVATE BY DESIGN
+
+Every sound is synthesized on your device in real time. Noizey has no ads, analytics, accounts, downloaded recordings, or network access. Your mixes and custom presets stay on your device unless you explicitly export a settings backup.
+
+No subscriptions. No tracking. Just the sound you choose.

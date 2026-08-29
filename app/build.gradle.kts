@@ -6,6 +6,31 @@ plugins {
     id("org.jetbrains.kotlin.plugin.compose")
 }
 
+val releaseKeystore = providers.environmentVariable("NOIZEY_UPLOAD_KEYSTORE")
+val releaseStorePassword = providers.environmentVariable("NOIZEY_UPLOAD_STORE_PASSWORD")
+val releaseKeyAlias = providers.environmentVariable("NOIZEY_UPLOAD_KEY_ALIAS")
+val releaseKeyPassword = providers.environmentVariable("NOIZEY_UPLOAD_KEY_PASSWORD")
+val phoneDebugKeystore = file(
+    providers.environmentVariable("NOIZEY_DEBUG_KEYSTORE")
+        .getOrElse("/Volumes/Scratch/coldstorage/mike/.android/debug.keystore"),
+)
+val releaseSigningConfigured = listOf(
+    releaseKeystore,
+    releaseStorePassword,
+    releaseKeyAlias,
+    releaseKeyPassword,
+).all { it.isPresent }
+val releaseTaskRequested = gradle.startParameter.taskNames.any {
+    it.contains("release", ignoreCase = true)
+}
+
+if (releaseTaskRequested && !releaseSigningConfigured) {
+    throw GradleException(
+        "Release builds require NOIZEY_UPLOAD_KEYSTORE, NOIZEY_UPLOAD_STORE_PASSWORD, " +
+            "NOIZEY_UPLOAD_KEY_ALIAS, and NOIZEY_UPLOAD_KEY_PASSWORD.",
+    )
+}
+
 android {
     namespace = "com.noizey.app"
     compileSdk = 36
@@ -21,8 +46,28 @@ android {
         vectorDrawables.useSupportLibrary = true
     }
 
+    signingConfigs {
+        getByName("debug") {
+            if (phoneDebugKeystore.isFile) {
+                storeFile = phoneDebugKeystore
+                storePassword = "android"
+                keyAlias = "androiddebugkey"
+                keyPassword = "android"
+            }
+        }
+        if (releaseSigningConfigured) {
+            create("release") {
+                storeFile = file(releaseKeystore.get())
+                storePassword = releaseStorePassword.get()
+                keyAlias = releaseKeyAlias.get()
+                keyPassword = releaseKeyPassword.get()
+            }
+        }
+    }
+
     buildTypes {
         release {
+            signingConfig = signingConfigs.findByName("release")
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(
