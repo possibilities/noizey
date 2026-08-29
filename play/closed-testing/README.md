@@ -15,6 +15,9 @@ Official references:
 
 - Prefer a Google Group or a private Play tester list. Never ask volunteers to
   post their Google-account address publicly.
+- A private, invite-only Google Group named `Noizey Closed Testers` is prepared
+  for Play access. Only group managers can post or view the member list; add
+  volunteers only after they consent through the signup flow.
 - Two Google Forms are prepared in the operator's Drive. Find them by the exact
   titles `Noizey Android closed-test signup` and `Noizey closed-test feedback`.
   Keep responder URLs out of this public repository; share the signup form only
