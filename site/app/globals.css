@@ -122,6 +122,7 @@ footer {
 .hero h1,
 .details h2,
 .section-heading h2,
+.privacy-page .section-heading h1,
 .support h2 {
   margin: 0;
   font-weight: 800;
@@ -371,6 +372,7 @@ footer {
 
 .details h2,
 .section-heading h2,
+.privacy-page .section-heading h1,
 .support h2 {
   font-size: clamp(52px, 6.5vw, 84px);
 }
@@ -402,6 +404,18 @@ footer {
 
 .policy {
   align-items: start;
+}
+
+.privacy-page {
+  min-height: calc(100vh - 224px);
+  border-bottom: 0;
+}
+
+.privacy-page .section-heading h1 {
+  margin: 0;
+  font-weight: 800;
+  letter-spacing: -0.075em;
+  line-height: 0.89;
 }
 
 .section-heading {

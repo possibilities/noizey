@@ -41,7 +41,7 @@ These answers describe release `1.0.0` and must be revisited whenever the app or
 
 ## Store contact
 
-- Privacy policy: **https://noizey.notimpossiblemike.chatgpt.site/#privacy**
+- Privacy policy: **https://noizey.notimpossiblemike.chatgpt.site/privacy**
 - Website: **https://noizey.notimpossiblemike.chatgpt.site**
 - Support email: **mikebannister@gmail.com**
 - The privacy policy accurately discloses optional Android system backup and device transfer of locally stored preferences.
@@ -71,6 +71,37 @@ These answers describe release `1.0.0` and must be revisited whenever the app or
 - Accounts: **No account creation**
 - Data transmitted off device: **None**
 - The system document picker reads or writes a settings backup only after an explicit user action. Noizey does not receive the file outside the app process or transmit it anywhere.
+
+### Release 1.0.0 audit (August 31, 2026)
+
+- Audited bundle: `app/build/outputs/bundle/release/app-release.aab`, version code
+  `1`, version name `1.0.0`, SHA-256
+  `19ce42a0fc3b2b1ee47de31c8ded7b1718904383adf54d1999c518d2cbf6c552`.
+- The merged release manifest has no `INTERNET`, advertising ID, location,
+  camera, microphone, contacts, accounts, or storage permission. Its only
+  platform permissions are foreground service, foreground media playback,
+  notifications, wake lock, and `ACCESS_NETWORK_STATE`. Media3 contributes
+  `ACCESS_NETWORK_STATE`; without `INTERNET`, it cannot transmit app data.
+- The packaged dependency closure contains AndroidX/Media3, Kotlin,
+  coroutines, and Guava support libraries. It contains no advertising,
+  analytics, crash-reporting, attribution, telemetry, billing, or HTTP-client
+  SDK.
+- App source stores mixes, presets, and preferences in private
+  `SharedPreferences`. Import and export use Android's system document picker
+  only after a user action. Android system backup and device transfer may copy
+  those preferences, as disclosed by the privacy policy; Noizey Studio does
+  not receive them.
+- The Privacy & support button opens the public Noizey URL in the user's
+  external URI handler. Noizey has no WebView, embedded browser, socket, or
+  HTTP request code. A release DEX string scan found the Noizey support URL and
+  library diagnostic/documentation URLs, but no app data endpoint.
+- Live Console review showed **No** for collecting or sharing required user
+  data. Its preview says **No data collection declared** and **No data shared
+  with third parties**, with the documented Noizey privacy-policy URL. This
+  matches the bundle, so no Console change was saved or submitted.
+- Re-run this audit before any release that adds a permission, SDK, server,
+  WebView, account, telemetry, advertising, billing, or other off-device data
+  path.
 
 ## Health apps declaration
 
