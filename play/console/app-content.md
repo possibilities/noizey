@@ -45,6 +45,11 @@ These answers describe release `1.0.0` and must be revisited whenever the app or
 - Website: **https://noizey.notimpossiblemike.chatgpt.site**
 - Support email: **mikebannister@gmail.com**
 - The privacy policy accurately discloses optional Android system backup and device transfer of locally stored preferences.
+- On August 31, 2026, the dedicated `/privacy` route was deployed and the
+  Console privacy-policy URL change was submitted. Play shows it under
+  **Changes in review**.
+- The four opaque RGB phone screenshots were recropped to `1080 × 2160`,
+  uploaded in listing order, and are also under **Changes in review**.
 
 ## Ads
 
