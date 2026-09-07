@@ -1,0 +1,283 @@
+{
+  "sounds": [
+    {
+      "id": "brown",
+      "name": "Brown noise",
+      "description": "Deep, soft low-frequency hush",
+      "category": "Generated",
+      "volume": 0.62
+    },
+    {
+      "id": "pink",
+      "name": "Pink noise",
+      "description": "Balanced and gentle across octaves",
+      "category": "Generated",
+      "volume": 0.55
+    },
+    {
+      "id": "white",
+      "name": "White noise",
+      "description": "Bright, even broadband masking",
+      "category": "Generated",
+      "volume": 0.42
+    },
+    {
+      "id": "gray",
+      "name": "Gray noise",
+      "description": "Perceptually balanced, smooth detail",
+      "category": "Generated",
+      "volume": 0.46
+    },
+    {
+      "id": "green",
+      "name": "Green noise",
+      "description": "Calm, centered natural spectrum",
+      "category": "Generated",
+      "volume": 0.5
+    },
+    {
+      "id": "blue",
+      "name": "Blue noise",
+      "description": "Crisp high-frequency veil",
+      "category": "Generated",
+      "volume": 0.32
+    },
+    {
+      "id": "violet",
+      "name": "Violet noise",
+      "description": "Airy, precise upper-frequency mask",
+      "category": "Generated",
+      "volume": 0.26
+    },
+    {
+      "id": "deep_fan",
+      "name": "Deep fan",
+      "description": "Steady air with a low motor bed",
+      "category": "Generated",
+      "volume": 0.52
+    },
+    {
+      "id": "cabin_hum",
+      "name": "Cabin hum",
+      "description": "Low mechanical drone and soft air",
+      "category": "Generated",
+      "volume": 0.5
+    },
+    {
+      "id": "soft_rain",
+      "name": "Soft rain",
+      "description": "Fine rain falling at a distance",
+      "category": "Nature",
+      "volume": 0.5
+    },
+    {
+      "id": "rain_window",
+      "name": "Rain on window",
+      "description": "Close droplets against glass",
+      "category": "Nature",
+      "volume": 0.46
+    },
+    {
+      "id": "heavy_rain",
+      "name": "Heavy rain",
+      "description": "Dense, enveloping downpour",
+      "category": "Nature",
+      "volume": 0.43
+    },
+    {
+      "id": "distant_thunder",
+      "name": "Distant thunder",
+      "description": "Occasional low rolling rumbles",
+      "category": "Nature",
+      "volume": 0.42
+    },
+    {
+      "id": "ocean",
+      "name": "Ocean waves",
+      "description": "Slow swells folding onto shore",
+      "category": "Nature",
+      "volume": 0.56
+    },
+    {
+      "id": "stream",
+      "name": "Running stream",
+      "description": "Clear water moving over stones",
+      "category": "Nature",
+      "volume": 0.48
+    },
+    {
+      "id": "waterfall",
+      "name": "Waterfall",
+      "description": "Wide, constant wall of water",
+      "category": "Nature",
+      "volume": 0.44
+    },
+    {
+      "id": "wind_trees",
+      "name": "Wind in trees",
+      "description": "Breathing gusts through leaves",
+      "category": "Nature",
+      "volume": 0.48
+    },
+    {
+      "id": "forest_night",
+      "name": "Forest night",
+      "description": "Night air and distant crickets",
+      "category": "Nature",
+      "volume": 0.46
+    },
+    {
+      "id": "fireplace",
+      "name": "Fireplace",
+      "description": "Warm ember bed with soft crackle",
+      "category": "Nature",
+      "volume": 0.42
+    }
+  ],
+  "presets": [
+    {
+      "id": "pure_brown",
+      "name": "Pure brown",
+      "note": "One deep layer",
+      "layers": {
+        "brown": {
+          "volume": 0.72,
+          "enabled": true
+        }
+      }
+    },
+    {
+      "id": "deep_sleep",
+      "name": "Deep sleep",
+      "note": "Brown · soft rain",
+      "layers": {
+        "brown": {
+          "volume": 0.64,
+          "enabled": true
+        },
+        "soft_rain": {
+          "volume": 0.28,
+          "enabled": true
+        }
+      }
+    },
+    {
+      "id": "quiet_focus",
+      "name": "Quiet focus",
+      "note": "Pink · stream",
+      "layers": {
+        "pink": {
+          "volume": 0.62,
+          "enabled": true
+        },
+        "stream": {
+          "volume": 0.16,
+          "enabled": true
+        }
+      }
+    },
+    {
+      "id": "cabin_storm",
+      "name": "Cabin storm",
+      "note": "Rain · brown · thunder",
+      "layers": {
+        "brown": {
+          "volume": 0.28,
+          "enabled": true
+        },
+        "heavy_rain": {
+          "volume": 0.52,
+          "enabled": true
+        },
+        "distant_thunder": {
+          "volume": 0.2,
+          "enabled": true
+        },
+        "fireplace": {
+          "volume": 0.12,
+          "enabled": true
+        }
+      }
+    },
+    {
+      "id": "ocean_night",
+      "name": "Ocean night",
+      "note": "Waves · brown · wind",
+      "layers": {
+        "brown": {
+          "volume": 0.18,
+          "enabled": true
+        },
+        "ocean": {
+          "volume": 0.58,
+          "enabled": true
+        },
+        "wind_trees": {
+          "volume": 0.12,
+          "enabled": true
+        }
+      }
+    },
+    {
+      "id": "forest_after_dark",
+      "name": "Forest after dark",
+      "note": "Night · stream · wind",
+      "layers": {
+        "pink": {
+          "volume": 0.12,
+          "enabled": true
+        },
+        "forest_night": {
+          "volume": 0.54,
+          "enabled": true
+        },
+        "stream": {
+          "volume": 0.16,
+          "enabled": true
+        },
+        "wind_trees": {
+          "volume": 0.1,
+          "enabled": true
+        }
+      }
+    },
+    {
+      "id": "airplane",
+      "name": "Airplane calm",
+      "note": "Brown · cabin · white",
+      "layers": {
+        "brown": {
+          "volume": 0.48,
+          "enabled": true
+        },
+        "cabin_hum": {
+          "volume": 0.44,
+          "enabled": true
+        },
+        "white": {
+          "volume": 0.12,
+          "enabled": true
+        }
+      }
+    },
+    {
+      "id": "warm_fire",
+      "name": "Warm fire",
+      "note": "Fire · brown · night",
+      "layers": {
+        "fireplace": {
+          "volume": 0.56,
+          "enabled": true
+        },
+        "brown": {
+          "volume": 0.22,
+          "enabled": true
+        },
+        "forest_night": {
+          "volume": 0.1,
+          "enabled": true
+        }
+      }
+    }
+  ]
+}

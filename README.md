@@ -2,6 +2,14 @@
 
 Noizey is an offline, monochrome dark Android sound mixer built for focus, rest, and masking distraction. It combines real-time colored noise with procedural nature soundscapes, keeps playing when its UI is dismissed, and deliberately mixes with other apps instead of taking exclusive audio focus.
 
+A desktop terminal app lives in this same repository. It brings the sound catalog, presets, mixer, and sleep timers to macOS and Linux, with the fxnk terminal design language. See [the TUI guide](docs/tui.md) for controls, backups, and platform details.
+
+```sh
+go run .
+```
+
+Requires Go 1.24+ and a C compiler. On macOS, install the Xcode command-line tools. On Linux, install a C toolchain and run with a working PulseAudio/PipeWire, ALSA, or JACK output. No external audio player or downloaded sound files are needed.
+
 ## What is included
 
 - Brown, pink, white, gray, green, blue, and violet noise
