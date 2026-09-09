@@ -1,5 +1,9 @@
 # Noizey agent guidance
 
+Read [CONTEXT.md](CONTEXT.md) for app terms and the [decision records](docs/adr/)
+before changing signing or distribution. Development phone updates and
+production-signing migration have different contracts.
+
 ## Build and validation
 
 - Use Gradle's normal cache directory at `/Users/arthack/.gradle` on the root
