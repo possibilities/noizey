@@ -63,6 +63,8 @@ The mixer lives in a Media3 `MediaSessionService` with the `mediaPlayback` foreg
 
 Noizey does **not** request Android audio focus. That is intentional: requesting focus would normally pause or fade the other app, while Noizey's core promise is to sit underneath it. Android's system mixer therefore combines Noizey with other non-exclusive playback. A phone force-stop, Android's Active Apps **Stop** action, or an exclusive hardware/audio route can still stop playback; apps are not allowed to bypass those system controls.
 
+The Android brand and layout guidance is in [the visual identity guide](docs/design/README.md).
+
 ## Architecture
 
 - Jetpack Compose + Material 3, one responsive screen

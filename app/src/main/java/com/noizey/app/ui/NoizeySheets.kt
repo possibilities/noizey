@@ -37,6 +37,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
@@ -79,6 +80,7 @@ internal fun AddSoundSheet(
     val sounds = if (selectedCategory == 0) SoundCatalog.generated else SoundCatalog.nature
 
     ModalBottomSheet(
+        sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
         onDismissRequest = onDismiss,
         containerColor = MaterialTheme.colorScheme.surface,
         contentColor = MaterialTheme.colorScheme.onSurface,
@@ -131,6 +133,15 @@ internal fun AddSoundSheet(
                         onAddedChange = { onToggleSound(definition.id, it) },
                     )
                 }
+            }
+            Button(
+                onClick = onDismiss,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .navigationBarsPadding()
+                    .padding(horizontal = 24.dp, vertical = 12.dp),
+            ) {
+                Text("Done")
             }
         }
     }
@@ -230,6 +241,7 @@ internal fun TimerSheet(
     val timerOptions = remember { listOf(15, 30, 45, 60, 90, 120) }
 
     ModalBottomSheet(
+        sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
         onDismissRequest = onDismiss,
         containerColor = MaterialTheme.colorScheme.surface,
         contentColor = MaterialTheme.colorScheme.onSurface,
@@ -333,6 +345,7 @@ internal fun InfoSheet(onDismiss: () -> Unit) {
     val uriHandler = LocalUriHandler.current
 
     ModalBottomSheet(
+        sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
         onDismissRequest = onDismiss,
         containerColor = MaterialTheme.colorScheme.surface,
         contentColor = MaterialTheme.colorScheme.onSurface,
@@ -457,7 +470,7 @@ internal fun SavePresetDialog(
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("Save this mix") },
+        title = { Text("Save preset") },
         text = {
             OutlinedTextField(
                 value = name,

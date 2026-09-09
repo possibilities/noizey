@@ -1,6 +1,7 @@
 package com.noizey.app.ui
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -44,12 +45,14 @@ import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilledIconButton
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Slider
+import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
@@ -63,13 +66,18 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.noizey.app.model.GeneratorKind
 import com.noizey.app.model.LayerSetting
 import com.noizey.app.model.Preset
@@ -77,6 +85,16 @@ import com.noizey.app.model.SoundCatalog
 import com.noizey.app.model.SoundDefinition
 import com.noizey.app.playback.PlaybackUiState
 import kotlin.math.roundToInt
+
+@Composable
+private fun NoizeyMark(modifier: Modifier = Modifier) {
+    val ink = MaterialTheme.colorScheme.onBackground
+    Canvas(modifier) {
+        val radius = size.minDimension / 2f
+        drawCircle(ink, radius * 0.8f, style = Stroke(radius * 0.4f))
+        drawCircle(ink, radius * 0.27f)
+    }
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -153,7 +171,7 @@ internal fun NoizeyScreen(
 
                 item(key = "preset-heading") {
                     Spacer(modifier = Modifier.height(8.dp))
-                    SectionLabel("PRESETS")
+                    SectionLabel("Presets")
                 }
 
                 item(key = "presets") {
@@ -214,10 +232,21 @@ private fun NoizeyTopBar(
 ) {
     TopAppBar(
         title = {
-            Text(
-                text = "Noizey",
-                style = MaterialTheme.typography.titleLarge,
-            )
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(10.dp),
+            ) {
+                NoizeyMark(Modifier.size(26.dp))
+                Text(
+                    text = "noizey",
+                    fontFamily = FontFamily.SansSerif,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 24.sp,
+                    letterSpacing = (-1).sp,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                )
+            }
         },
         actions = {
             if (timerRemainingMillis != null) {
@@ -272,8 +301,9 @@ private fun CurrentMix(
     onMasterVolumeChange: (Float) -> Unit,
     onSavePresetRequested: () -> Unit,
 ) {
-    Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+    Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
         Row(
+            modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(8.dp),
         ) {
@@ -290,14 +320,20 @@ private fun CurrentMix(
                     ),
             )
             Text(
-                text = if (state.isPlaying) "PLAYING IN BACKGROUND" else "READY TO PLAY",
-                style = MaterialTheme.typography.labelSmall,
+                text = if (state.isPlaying) "Playing" else "Your mix",
+                style = MaterialTheme.typography.labelMedium,
                 color = if (state.isPlaying) {
                     MaterialTheme.colorScheme.primary
                 } else {
                     MaterialTheme.colorScheme.onSurfaceVariant
                 },
             )
+            Spacer(modifier = Modifier.weight(1f))
+            if (showSaveAction) {
+                TextButton(onClick = onSavePresetRequested) {
+                    Text("Save preset")
+                }
+            }
         }
 
         Row(
@@ -320,16 +356,11 @@ private fun CurrentMix(
                     text = if (state.mix.layers.isEmpty()) {
                         "Add a sound to build your mix"
                     } else {
-                        "Mixes with other apps"
+                        "Plays alongside your other apps"
                     },
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
-            }
-            if (showSaveAction) {
-                TextButton(onClick = onSavePresetRequested) {
-                    Text("Save mix")
-                }
             }
         }
 
@@ -353,6 +384,12 @@ private fun CurrentMix(
                 value = state.mix.masterVolume,
                 onValueChange = onMasterVolumeChange,
                 steps = 19,
+                colors = SliderDefaults.colors(
+                    activeTickColor = Color.Transparent,
+                    inactiveTickColor = Color.Transparent,
+                    disabledActiveTickColor = Color.Transparent,
+                    disabledInactiveTickColor = Color.Transparent,
+                ),
                 modifier = Modifier
                     .fillMaxWidth()
                     .semantics {
@@ -368,8 +405,9 @@ private fun CurrentMix(
 private fun SectionLabel(text: String) {
     Text(
         text = text,
-        style = MaterialTheme.typography.labelSmall,
-        color = MaterialTheme.colorScheme.onSurfaceVariant,
+        style = MaterialTheme.typography.titleMedium,
+        color = MaterialTheme.colorScheme.onSurface,
+        modifier = Modifier.semantics { heading() },
     )
 }
 
@@ -386,10 +424,10 @@ private fun PresetCard(
     Surface(
         onClick = onSelected,
         modifier = Modifier
-            .width(168.dp)
-            .heightIn(min = 104.dp)
+            .width(176.dp)
+            .heightIn(min = 88.dp)
             .semantics { stateDescription = selectionDescription },
-        shape = MaterialTheme.shapes.medium,
+        shape = MaterialTheme.shapes.small,
         color = if (selected) {
             MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.72f)
         } else {
@@ -414,7 +452,7 @@ private fun PresetCard(
                     text = preset.name,
                     style = MaterialTheme.typography.titleMedium,
                     modifier = Modifier.weight(1f),
-                    maxLines = 1,
+                    maxLines = 2,
                     overflow = TextOverflow.Ellipsis,
                 )
                 if (selected) {
@@ -482,7 +520,14 @@ private fun MixerHeader(
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        SectionLabel("MIX · ${soundCountLabel(layerCount).uppercase()}")
+        Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+            SectionLabel("Sounds")
+            Text(
+                soundCountLabel(layerCount),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+        }
         Spacer(modifier = Modifier.weight(1f))
         TextButton(onClick = onAddSoundRequested) {
             Icon(
@@ -536,36 +581,23 @@ private fun LayerCard(
 
     Surface(
         modifier = Modifier.fillMaxWidth(),
-        color = MaterialTheme.colorScheme.surface,
-        shape = MaterialTheme.shapes.medium,
+        color = MaterialTheme.colorScheme.background,
     ) {
         Column(
-            modifier = Modifier.padding(16.dp),
+            modifier = Modifier.padding(vertical = 4.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(12.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
             ) {
-                Surface(
-                    modifier = Modifier.size(40.dp),
-                    color = MaterialTheme.colorScheme.surfaceVariant,
-                    shape = MaterialTheme.shapes.small,
-                ) {
-                    Box(contentAlignment = Alignment.Center) {
-                        Icon(
-                            imageVector = soundIcon(definition),
-                            contentDescription = null,
-                            tint = if (layer.enabled) {
-                                MaterialTheme.colorScheme.onSurface
-                            } else {
-                                MaterialTheme.colorScheme.onSurfaceVariant
-                            },
-                            modifier = Modifier.size(21.dp),
-                        )
-                    }
-                }
+                Icon(
+                    imageVector = soundIcon(definition),
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.size(24.dp),
+                )
                 Column(
                     modifier = Modifier.weight(1f),
                     verticalArrangement = Arrangement.spacedBy(2.dp),
@@ -573,7 +605,7 @@ private fun LayerCard(
                     Text(
                         text = definition.name,
                         style = MaterialTheme.typography.titleMedium,
-                        maxLines = 1,
+                        maxLines = 2,
                         overflow = TextOverflow.Ellipsis,
                     )
                     Text(
@@ -621,13 +653,19 @@ private fun LayerCard(
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(12.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
             ) {
                 Slider(
                     value = layer.volume,
                     onValueChange = onVolumeChange,
                     enabled = layer.enabled,
                     steps = 19,
+                    colors = SliderDefaults.colors(
+                        activeTickColor = Color.Transparent,
+                        inactiveTickColor = Color.Transparent,
+                        disabledActiveTickColor = Color.Transparent,
+                        disabledInactiveTickColor = Color.Transparent,
+                    ),
                     modifier = Modifier
                         .weight(1f)
                         .semantics {
@@ -639,11 +677,10 @@ private fun LayerCard(
                     text = percentText(layer.volume),
                     style = MaterialTheme.typography.labelMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier
-                        .width(40.dp)
-                        .alpha(if (layer.enabled) 1f else 0.48f),
+                    modifier = Modifier.width(44.dp),
                 )
             }
+            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
         }
     }
 }
