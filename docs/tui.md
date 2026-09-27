@@ -88,7 +88,7 @@ Noninteractive operations are also available:
 
 ## Appearance and validation
 
-The style contract is `~/code/fxnk/style/STYLE.md` and its `tokens.json`. The TUI uses fixed indexed gray roles, the terminal's default background, and the focus caret from the fxnk vocabulary. The light palette is selected by case-insensitive `FX_THEME=light|dark`, otherwise one 200 ms OSC 11 background query, then `COLORFGBG`, then dark. Mode 2031 notifications trigger a DA1-fenced resample and a complete palette swap; late startup replies and stale live replies are ignored.
+The style contract is `~/workshops/fxnk/style/STYLE.md` and its `tokens.json`. The TUI uses fixed indexed gray roles, the terminal's default background, and the focus caret from the fxnk vocabulary. The light palette is selected by case-insensitive `FX_THEME=light|dark`, otherwise one 200 ms OSC 11 background query, then `COLORFGBG`, then dark. Mode 2031 notifications trigger a DA1-fenced resample and a complete palette swap; late startup replies and stale live replies are ignored.
 
 ```sh
 FX_THEME=light ./noizey
