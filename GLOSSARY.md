@@ -6,5 +6,5 @@ _Avoid_: playlist, track, audio file.
 **Preset** — A named mix configuration that can be restored later. Presets are either bundled with Noizey or created locally by the user.
 _Avoid_: song, sample, recording.
 
-**Settings backup** — A user-created portable file containing the current mix, custom presets, and playback preference. It never contains generated audio or personal information.
+**Settings backup** — A user-created portable file containing the current mix, custom presets, and playback preference. It contains no generated audio; user-entered mix and preset names may contain personal information.
 _Avoid_: cloud sync, account backup.
