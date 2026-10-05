@@ -1,6 +1,6 @@
 # Noizey agent guidance
 
-Read [CONTEXT.md](CONTEXT.md) for app terms and the [decision records](docs/adr/)
+Read [GLOSSARY.md](GLOSSARY.md) for app terms and the [decision records](docs/adr/)
 before changing signing or distribution. Development phone updates and
 production-signing migration have different contracts.
 
